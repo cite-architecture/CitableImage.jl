@@ -6,15 +6,16 @@ struct IIIFservice
 end
 
 function url(img::Cite2Urn, service::IIIFservice)
-    service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * objectomponent(dropsubref(img)) * ".tif/full/2000,/0/default.jpg"
-# res0: String = "http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/2000,/0/default.jpg"
-# s"${baseUrl}IIIF=${imagePath}${imageID}.tif/${roiComponent}/${sizing}/0/default.jpg"
-   
+    service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * "/" * objectcomponent(dropsubref(img)) * ".tif/full/2000,/0/default.jpg"   
 end
 
 function markdownImage(img::Cite2Urn, service::IIIFservice) #, width::Int   
+    if hassubref(img) 
+        "USE ROI"
+    else
+        "![image](" *  service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * "/" * objectcomponent(dropsubref(img)) * ".tif/full/2000,/0/default.jpg)"  
     #  res1: String = "![image](http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/200,/0/default.jpg)"
-    "TBA"
+    end
 end
 
 function htmlImage(img::Cite2Urn, service::IIIFservice)
