@@ -7,6 +7,7 @@ using Documenter, DocStringExtensions
 export IIIFservice
 export image_directory
 export url, markdownImage, linkedMarkdownImage
+export lmi
 # Future release
 #export htmlImage, linkedHtmlImage
     
