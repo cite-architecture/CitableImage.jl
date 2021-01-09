@@ -3,7 +3,7 @@ module CitableImage
 using CitableObject
 using CitableBase
 
-export Iiifservice
+export IIIFservice
 export image_directory
 export url, markdownImage, htmlImage, 
     linkedMarkdownImage, linkedHtmlImage

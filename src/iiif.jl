@@ -1,21 +1,24 @@
+
 "An instance of an IIIF image service."
 struct IIIFservice
     baseurl
     directoryroot
 end
 
-function url(img::Cite2Urn, service:::IIIFservice)
+function url(img::Cite2Urn, service::IIIFservice)
+    service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * objectomponent(dropsubref(img)) * ".tif/full/2000,/0/default.jpg"
 # res0: String = "http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/2000,/0/default.jpg"
 # s"${baseUrl}IIIF=${imagePath}${imageID}.tif/${roiComponent}/${sizing}/0/default.jpg"
    
 end
 
-function markdownImage(img::Cite2Urn, service:::IIIFservice) #, width::Int
-   )
+function markdownImage(img::Cite2Urn, service::IIIFservice) #, width::Int
+   
 #  res1: String = "![image](http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/200,/0/default.jpg)"
+    "URL"
 end
 
-function htmlImage(img::Cite2Urn, service:::IIIFservice)
+function htmlImage(img::Cite2Urn, service::IIIFservice)
     #res3: String = "<img class=\"citeImage\" src=\"http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/!75,/0/default.jpg\" />"
 end
 
