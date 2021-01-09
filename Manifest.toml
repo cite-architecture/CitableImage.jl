@@ -11,9 +11,9 @@ version = "1.1.0"
 
 [[CitableObject]]
 deps = ["CitableBase", "DocStringExtensions", "Documenter", "Test"]
-git-tree-sha1 = "15e76c032e1ecd1695b448beee59861c342e8514"
+git-tree-sha1 = "74ffdeb078a9b21667168c59bab9446a57c1fba7"
 uuid = "e2b2f5ea-1cd8-4ce8-9b2b-05dad64c2a57"
-version = "0.2.0"
+version = "0.2.1"
 
 [[Dates]]
 deps = ["Printf"]
