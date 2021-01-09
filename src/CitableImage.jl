@@ -10,7 +10,9 @@ export url, markdownImage, htmlImage,
 
 
 include("iiif.jl")
-include("pathutils.jl")
+include("utils.jl")
+
+
 
 end # module
 
