@@ -1,5 +1,7 @@
 # CitableImage.jl
 
-A Julia package for using images cited by `Cite2Urn`, and available from an [IIIF service](https://iiif.io/).
 
-The package expects that the directory layout of the IIIF service will reflect the namespace and work hierarchy of cited image collections.
+> *Use URNs. to work with image services.*
+
+The current version of the CitableImage package supports working with image servics using the  [IIIF protocol](https://iiif.io/) .
+
