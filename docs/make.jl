@@ -13,6 +13,7 @@ makedocs(
     pages = [
         "Home" => "index.md",
         "Guide" => "guide.md",
+        "Server configuration" => "server.md",
         "API documentation" => "apis.md"
     ]
 )
