@@ -3,5 +3,5 @@
 
 *Use URNs to work with image services.*
 
-The current version of the CitableImage package supports working with image servics using the  [IIIF protocol](https://iiif.io/) .
+The current version of the CitableImage package supports working with image services using the  [IIIF protocol](https://iiif.io/) .
 
