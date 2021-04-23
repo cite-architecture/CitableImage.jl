@@ -2,9 +2,9 @@
 # following CITE architecture conventions
 
 
-"""
+"""Create directory path for a given urn.
+
 $(SIGNATURES)
-Create directory path based on URN structure.
 """
 function image_directory(urn::Cite2Urn)
     namespace(urn) * "/" * join(parts(collectioncomponent(urn)), "/")
@@ -12,10 +12,15 @@ end
 
 
 
-"""
-$(SIGNATURES)
-Given a region-of-interest string, compute percent values,
+"""Given a region-of-interest string, compute percent values,
 with result rounded to a given number of digits.
+
+$(SIGNATURES)
+
+# Arguments
+
+- `s` string with four comma-separated ROI values
+- `digits` precision of resulting float
 """
 function roiFloats(s::AbstractString, digits::Int = 3)
     parts = split(s, ",")
@@ -27,18 +32,21 @@ function roiFloats(s::AbstractString, digits::Int = 3)
     end
 end
 
-"""
+"""Given a region-of-interest string, compose percent expression for IIIF.
+
 $(SIGNATURES)
-Given a region-of-interest string, compose percent expression for IIIF.
+
+# Argument
+- `s`  string with four comma-separated ROI values
 """
 function pctString(s::AbstractString)
     floats = join(roiFloats(s), ",")
     "pct:" * floats
 end
 
-"""
+""" Given a CITE2 URN with region-of-interest subreference, compose percent expression for IIIF.
 $(SIGNATURES)
-Given a CITE2 URN with region-of-interest subreference, compose percent expression for IIIF.
+
 """
 function pctString(u::Cite2Urn)
     roi = subref(u)
