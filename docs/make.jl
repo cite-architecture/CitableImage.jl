@@ -17,3 +17,7 @@ makedocs(
         "API documentation" => "apis.md"
     ]
 )
+
+deploydocs(
+    repo = "github.com/cite-architecture/CitableImage.jl.git",
+) 
