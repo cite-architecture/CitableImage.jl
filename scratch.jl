@@ -1,3 +1,4 @@
+using Base: padding
 using HTTP
 using ImageMagick
 using ImageShow
@@ -13,7 +14,6 @@ end
 img = uforw(2000) |> imgfromurl
 
 ImageShow.gif(img)
-
 
 using Images
 graymask = RGB(0.8, 0.8, 0.8)
@@ -45,11 +45,39 @@ tweakable[1000:1500,250:1000] = rgbtogray.(tweakable[1000:1500,250:1000])
 
 tweakable
 
+
+
+function box!(img, t,l,h,w; clr = RGB(0.0,0.0,1.0), padding=2)
+
+    top = t - padding
+    bottom = t + h + padding
+    left = l - padding
+    right = l + w + 2*padding
+
+    # Draw top border:
+    img[top:t, left:right] .= clr
+    # Draw bottom border:
+    img[bottom - padding:bottom, left:right] .= clr
+    # Draw left border:
+    img[top:bottom, left:l] .= clr
+    # Draw right border:
+    img[top:bottom, right - padding:right] .= clr
+
+    img
+end
+
+
+boxcolor = RGB(0.5,0.0,0.5)
+
+imgcp = copy(img)
+box!(imgcp, 1200,200,200,1150; padding=5, clr=boxcolor)
+
+
+
 Gray(rd)
 
 println("HOld it.")
 
-imgx = Array(reshape(range(0,stop=1,length=10^4), 100, 100))
-img_c = imgx[51:70, 21:70]
 
 RGB(1.0,0.0,0.5) |> Gray
+
