@@ -15,17 +15,41 @@ img = uforw(2000) |> imgfromurl
 ImageShow.gif(img)
 
 
-s = "http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/2000,/0/default.jpg"
+using Images
+graymask = RGB(0.8, 0.8, 0.8)
 
-#{scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
+rd = RGB(1.0,0.0,0.0)
 
-modded = replace(s, r"full\/[^/]*" => "full/100,0")
-w = 100
-src = "full/2000,/0/default.jpg"
-mod2 = replace(src, r"full/[^/]+" => "full/$w,")
+sum(rd, graymask)
 
-roi = "tif/pct:20.35,20.76,17.26,2.451/2000,/0/default.jpg"
-modroi = replace(roi, r"tif/([^/]+)/.+" => s"tif/\1/")
-string(modroi, w, ",/0/default.jpg")
-msg = "#Hello# from Julia";
-replace(msg, r"#(.+)# from (?<from>\w+)" => s"FROM: \g<from>; MESSAGE: \1")
+function fade(clr,drkness)
+    return(RGB(clr.r * drkness, clr.g * drkness, clr.b * drkness))
+end
+
+function rgbtogray(clr)
+    return(Gray(clr))
+end
+
+fadedred = fade(rd, 1.9)
+
+fadedred |> typeof
+rd.b
+img |> typeof
+
+img
+
+using Images
+tweakable = copy(img)
+
+tweakable[1000:1500,250:1000] = rgbtogray.(tweakable[1000:1500,250:1000])
+
+tweakable
+
+Gray(rd)
+
+println("HOld it.")
+
+imgx = Array(reshape(range(0,stop=1,length=10^4), 100, 100))
+img_c = imgx[51:70, 21:70]
+
+RGB(1.0,0.0,0.5) |> Gray
