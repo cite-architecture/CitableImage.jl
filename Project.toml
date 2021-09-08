@@ -1,28 +1,18 @@
 name = "CitableImage"
 uuid = "17ccb2e5-db19-44b3-b354-4fd16d92c74e"
 authors = ["Neel Smith <dnsmith.neel@gmail.com>"]
-version = "0.1.8"
+version = "0.1.9"
 
 [deps]
 CitableBase = "d6f014bd-995c-41bd-9893-703339864534"
 CitableObject = "e2b2f5ea-1cd8-4ce8-9b2b-05dad64c2a57"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
-ImageMagick = "6218d12a-5da1-5696-b52f-db25d2ecc6d1"
-ImageShow = "4e3cecfd-b093-5904-9786-8bbb286a6a31"
-Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
-OffsetArrays = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
-CitableBase = "1.1"
+CitableBase = "1"
 CitableObject = "0.3, 0.4, 0.5, 0.6"
 DocStringExtensions = "0.8"
-Documenter = "0.26"
-HTTP = "0.9"
-ImageMagick = "1"
-ImageShow = "0.3"
-Images = "0.24"
-OffsetArrays = "1"
-julia = "1.5"
+Documenter = "0.26, 0.27"
+julia = "1"
