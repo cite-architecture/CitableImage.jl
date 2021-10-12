@@ -1,3 +1,5 @@
+![build](https://github.com/cite-architecture/CitableImage.jl/actions/workflows/Documentation.yml/badge.svg)
+
 # CitableImage.jl
 
 *Use URNs to work with image services.*
