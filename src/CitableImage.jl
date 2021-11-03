@@ -1,7 +1,8 @@
 module CitableImage
 
 using CitableObject
-using CitableBase
+using CitableBase: parts
+using CitableBase: components
 using Documenter, DocStringExtensions
 
 export IIIFservice
