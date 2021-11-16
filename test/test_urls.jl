@@ -59,5 +59,5 @@ end
 
     expectedlink = "<a href=\"http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:vaimg.2017a:VA001RN_0002@0.2964,0.6418,0.3163,0.01744\"><img class=\"citeImage\" alt=\"image\" src=\"http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA001RN_0002.tif/pct:29.64,64.18,31.63,1.744/500,/0/default.jpg\"/></a>"
 
-    @test  linkedHtmlImage(ict,urn,svc) == expectedlink
+    @test  linkedHtmlImage(ict,img,svc) == expectedlink
 end
