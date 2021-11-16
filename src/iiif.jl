@@ -1,4 +1,3 @@
-
 "An instance of an IIIF image service."
 struct IIIFservice
     baseurl
@@ -15,7 +14,7 @@ $(SIGNATURES)
 - `service` `IIIFService`
 - `ht` Height of resulting image in pixels.
 """
-function url(img::Cite2Urn, service::IIIFservice, ht::Int=2000)
+function url(img::Cite2Urn, service::IIIFservice; ht::Int=2000)
     if hassubref(img)
         pct = pctString(img)
         service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * "/" * objectcomponent(dropsubref(img)) * ".tif/$(pct)/$(ht),/0/default.jpg"   
@@ -35,14 +34,17 @@ $(SIGNATURES)
 - `ht` Height of resulting image in pixels.
 
 """
-function markdownImage(img::Cite2Urn, service::IIIFservice, ht::Int=2000, caption::AbstractString="image") 
-    if hassubref(img) 
-        pct = pctString(img)
-        "![$(caption)](" *  service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * "/" * objectcomponent(dropsubref(img)) * ".tif/$(pct)/$(ht),/0/default.jpg)"  
-    else
-        "![$(caption)](" *  service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * "/" * objectcomponent(dropsubref(img)) * ".tif/full/$(ht),/0/default.jpg)"  
-    
-    end
+function markdownImage(img::Cite2Urn, service::IIIFservice; ht::Int=2000, caption::AbstractString="image") 
+    #if hassubref(img) 
+        #pct = pctString(img)
+        pieces = [
+        "![",
+        caption,
+        "](",
+        url(img, service; ht = ht),
+        ")"
+        ]
+        join(pieces)
 end
 
 """Compose markdown wrapping IIIF URL for image linked to an image citation tool installation.
@@ -67,19 +69,44 @@ function linkedMarkdownImage(ict::AbstractString, img, service; ht::Int=500, cap
 end
 
 
+"""Compose HTML `img` element for image retrieved from an IIIF service.
 
-
-
-# Functions for future versions:
-
-
-function htmlImage(img::Cite2Urn, service::IIIFservice)
-    #res3: String = "<img class=\"citeImage\" src=\"http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/!75,/0/default.jpg\" />"
-    @warn "htmlImage ot yet implemented"
-    nothing
+$(SIGNATURES)
+"""
+function htmlImage(img::Cite2Urn, service::IIIFservice; ht = 2000, caption::AbstractString="image")
+    #res3: String = "<img class=\"citeImage\" alt=\"image\" src=\"http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/!75,/0/default.jpg\" />"
+    
+    
+    pieces = [
+        "<img class=\"citeImage\"",
+        " alt=\"",
+        caption,
+        "\" ",
+        " src=\"",
+        url(img, service, ht = ht),
+        "\" />"
+    ]
+    join(pieces)
 end
-function linkedHtmlImage(img, service) #, caption="Folio 12 recto of the Venetus A manuscript of the Iliad")
+
+
+"""Compose markdown wrapping IIIF URL for image linked to an image citation tool installation.
+
+$(SIGNATURES)
+"""
+function linkedHtmlImage(ict::AbstractString, img, service;  ht::Int=500, caption::AbstractString="image") #, caption="Folio 12 recto of the Venetus A manuscript of the Iliad")
     #  String = "<a href=\"http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:vaimg.2017a:VA012RN_0013\"><img class=\"citeImage\" src=\"http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/!,150/0/default.jpg\" /></a>"
-    @warn "linkedHtmlImage ot yet implemented"
-    nothing
+    pieces = [
+    "<a href=\"",
+    ict,
+    "urn=",
+    img,
+    "\"><img class=\"citeImage\"",
+    " alt=\"",
+    caption,
+    "\" src=\"",
+    url(img,service; ht=ht),
+    "\"/></a>"
+    ]
+    join(pieces)
 end
