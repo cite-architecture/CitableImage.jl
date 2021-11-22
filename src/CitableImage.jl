@@ -9,7 +9,7 @@ export IIIFservice
 export image_directory
 export url, markdownImage, linkedMarkdownImage
 export htmlImage, linkedHtmlImage
-    
+export image_directory
 
 
 include("iiif.jl")

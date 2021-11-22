@@ -7,7 +7,8 @@
 $(SIGNATURES)
 """
 function image_directory(urn::Cite2Urn)
-    namespace(urn) * "/" * join(parts(collectioncomponent(urn)), "/")
+    collpath = joinpath(parts(collectioncomponent(urn))...)
+    joinpath(namespace(urn), collpath)
 end
 
 

@@ -31,7 +31,7 @@ iifrequest = url(img, service)
 Format the request for inclusion in a markdown document.  Here, we'll use the optional height parameter to set the result image's size in pixels.
 
 ```@example eg
-markdownImage(img, service, 200)
+markdownImage(img, service; ht = 200)
 ```
 ```@eval
 using CitableImage
@@ -43,7 +43,7 @@ using CitableObject
 img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013")
 
 using Markdown
-Markdown.parse(markdownImage(img, service, 200))
+Markdown.parse(markdownImage(img, service; ht = 200))
 ```
 
 ## Compose a markdown display linked to an image citation tool
@@ -70,4 +70,28 @@ img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013")
 ict = "http://www.homermultitext.org/ict2/?"
 using Markdown
 Markdown.parse(linkedMarkdownImage(ict, img, service; ht=100, caption="folio 12 recto"))
+```
+
+
+
+
+## Compose an HTML display of an image
+
+Format the request for inclusion in an HTML document.  Here, we'll use the optional height parameter to set the result image's size in pixels.
+
+```@example eg
+htmlImage(img, service; ht = 200)
+```
+
+
+```@eval
+using CitableImage
+baseurl = "http://www.homermultitext.org/iipsrv"
+root = "/project/homer/pyramidal/deepzoom"
+service = IIIFservice(baseurl, root)
+
+using CitableObject
+img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013")
+
+HTML(htmlImage(img, service; ht = 200))
 ```
