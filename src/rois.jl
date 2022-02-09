@@ -26,3 +26,8 @@ end
 function right(rect::T) where {T <: AbstractRectRoi}
     throw(DomainError("Function `right` not implemented for type $(T)"))
 end
+
+
+
+
+

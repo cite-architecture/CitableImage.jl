@@ -1,7 +1,6 @@
 # Utils for turning URNs into paths in file systems
 # following CITE architecture conventions
 
-
 """Create directory path for a given urn.
 
 $(SIGNATURES)
@@ -54,4 +53,3 @@ function pctString(u::Cite2Urn)
     floats = join(roiFloats(roi), ",")
     "pct:" * floats
 end
-

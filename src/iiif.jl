@@ -4,6 +4,14 @@ struct IIIFservice <: AbstractImageSource
     directoryroot
 end
 
+"""Retrieve image data for `img` from `IIIFService`.
+$(SIGNATURES)
+"""
+function imagedata(src::IIIFservice, img::Cite2Urn; ht::Int=2000) 
+    Downloads.download(url(img, src, ht = ht)) |> load
+end
+
+
 
 """Compose IIIF URL for retrieving an image.
 $(SIGNATURES)

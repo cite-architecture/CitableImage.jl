@@ -3,6 +3,7 @@ using Documenter, DocStringExtensions
 
 using Images
 using FileIO, ImageIO
+using Downloads
 
 import Base: show
 import Base: ==
@@ -23,6 +24,10 @@ import CitableBase: urnsimilar
 import CitableBase: cextrait
 import CitableBase: cex
 import CitableBase: fromcex
+
+
+export AbstractImageSource
+export imagedata
 
 export IIIFservice
 export image_directory
