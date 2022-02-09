@@ -1,6 +1,9 @@
 module CitableImage
 using Documenter, DocStringExtensions
 
+using Images
+using FileIO, ImageIO
+
 import Base: show
 import Base: ==
 
@@ -29,6 +32,8 @@ export image_directory
 
 export ImageRecord
 
+include("rois.jl")
+include("source.jl")
 include("iiif.jl")
 include("utils.jl")
 include("image.jl")

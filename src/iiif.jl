@@ -1,5 +1,5 @@
 "An instance of an IIIF image service."
-struct IIIFservice
+struct IIIFservice <: AbstractImageSource
     baseurl
     directoryroot
 end
