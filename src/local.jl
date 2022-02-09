@@ -11,6 +11,10 @@ end
 
 
 function imagedata(src::LocalImageFiles, img::Cite2Urn; extension = "jpg", ht::Int=2000) 
+    @warn("Scaling not yet supported")
+    if hassubref(img)
+        @warn("Subreferences not  yet supported")
+    end
     imgpath(src, img, extension = extension) |> load
 end
 
@@ -27,7 +31,7 @@ end
 $(SIGNATURES)
 """
 function imgpath(imgsrc::LocalImageFiles, imgurn::Cite2Urn; extension = "jpg")
-    filebase = imgurn |> CitableObject.dropsubref |> objectcomponent 
+    filebase = imgurn |> dropsubref |> objectcomponent 
     filename = filebase * "." * extension
     imgsrc.expandpath ? 
         joinpath(basedirectory(imgsrc), subdirectory(imgurn), filename) : 
