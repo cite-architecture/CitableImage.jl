@@ -9,6 +9,12 @@ struct LocalImageFiles <: AbstractImageSource
 end
 
 
+
+function imagedata(src::LocalImageFiles, img::Cite2Urn; extension = "jpg", ht::Int=2000) 
+    imgpath(src, img, extension = extension) |> load
+end
+
+
 """Convenience function to create a `LocalImageFiles` that will expand paths from URNs by default.
 $(SIGNATURES)
 """
@@ -20,7 +26,7 @@ end
 """Compose full path to the image file `imgurn`.
 $(SIGNATURES)
 """
-function imgpath(imgsrc::LocalImageFiles, imgurn::Cite2Urn; extension = "tif")
+function imgpath(imgsrc::LocalImageFiles, imgurn::Cite2Urn; extension = "jpg")
     filebase = imgurn |> CitableObject.dropsubref |> objectcomponent 
     filename = filebase * "." * extension
     imgsrc.expandpath ? 
