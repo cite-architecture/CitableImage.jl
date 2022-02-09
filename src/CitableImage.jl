@@ -30,17 +30,21 @@ export AbstractImageSource
 export imagedata
 
 export IIIFservice
-export image_directory
+export subdirectory
 export url, markdownImage, linkedMarkdownImage
 export htmlImage, linkedHtmlImage
-export image_directory
+export subdirectory
+
+export LocalImageFiles, localimages
 
 export ImageRecord
 
 include("rois.jl")
+include("utils.jl")
 include("source.jl")
 include("iiif.jl")
-include("utils.jl")
+include("local.jl")
+
 include("image.jl")
 
 
