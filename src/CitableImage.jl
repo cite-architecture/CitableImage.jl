@@ -29,6 +29,10 @@ import CitableBase: fromcex
 export AbstractImageSource
 export imagedata
 
+export AbstractRectRoi
+export top, left, bottom, right, h, w
+
+
 export IIIFservice
 export subdirectory
 export url, markdownImage, linkedMarkdownImage

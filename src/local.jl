@@ -11,11 +11,20 @@ end
 
 
 function imagedata(src::LocalImageFiles, img::Cite2Urn; extension = "jpg", ht::Int=2000) 
-    @warn("Scaling not yet supported")
+    fullimg = imgpath(src, img, extension = extension) |> load  
     if hassubref(img)
-        @warn("Subreferences not  yet supported")
+        @warn(subref(img))
+        floats = []
+        for s in split(subref(img), ",") 
+            push!(floats, parse(Float64, s))
+        end
+        # Slice first:
+        sliced = urnslice(fullimg, floats)
+        urnscale(sliced, ht)
+    else
+        urnscale(fullimg, ht)
     end
-    imgpath(src, img, extension = extension) |> load
+    
 end
 
 

@@ -16,3 +16,14 @@ end
     urn = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013@0.12345,0.22345,0.32345,0.42345")
     @test CitableImage.pctString(urn) == expected
 end
+
+@testset "Test rectangular RoI abstraction" begin
+    struct FakeRect <: AbstractRectRoi end
+    fakeRect = FakeRect()
+    @test_throws DomainError top(fakeRect)
+    @test_throws DomainError bottom(fakeRect)
+    @test_throws DomainError left(fakeRect)
+    @test_throws DomainError right(fakeRect)
+    @test_throws DomainError h(fakeRect)
+    @test_throws DomainError w(fakeRect)
+end
