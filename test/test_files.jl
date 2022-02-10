@@ -13,6 +13,6 @@
     @test size(data) == (2000, 459)
 
     data500  = imagedata(flatsrc, flatdirimg, ht = 500)
-    @test xize(data500) == (500, 114)
+    @test size(data500) == (500, 114)
 
 end
