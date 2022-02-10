@@ -11,6 +11,8 @@ import Base: ==
 using CitableObject
 using CitableBase
 
+import CitableBase: citablecollectiontrait
+
 import CitableBase: citabletrait
 import CitableBase: urntype
 import CitableBase: urn
@@ -42,6 +44,7 @@ export subdirectory
 export LocalImageFiles, localimages
 
 export ImageRecord
+export ImageCollection
 
 include("rois.jl")
 include("tlhwrect.jl")
@@ -54,6 +57,7 @@ include("iiif.jl")
 include("local.jl")
 
 include("image.jl")
+include("collection.jl")
 
 
 

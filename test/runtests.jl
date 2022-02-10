@@ -12,5 +12,6 @@ include("test_paths.jl")
 include("test_urls.jl")
 include("test_rois.jl")
 include("test_image.jl")
+include("test_imgcollection.jl")
 
 
