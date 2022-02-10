@@ -48,10 +48,28 @@ end
 
     imgcoll = image_collection([img])
     @test cexserializable(imgcoll)
+    expected = "#!datamodels\nCollection|Model|Label|Description\nurn:cite2:hmt:vaimg.2017a:|urn:cite2:cite:datamodels.v1:imagemodel|Image collection with 1 image\n\n#!citeproperties\nProperty|Label|Type|Authority list\nurn:cite2:hmt:vaimg.2017a.urn:|URN|Cite2Urn|\nurn:cite2:hmt:vaimg.2017a.label:|Label|String|\nurn:cite2:hmt:vaimg.2017a.rights:|Rights|String|\n\n#!citedata\nurn|caption|rights\nurn:cite2:hmt:vaimg.2017a:VA083RN_0084|folio 83 recto, natural light|CC-by-share"
+    @test cex(imgcoll) == expected
+    @test fromcex(cex(imgcoll), ImageCollection) == imgcoll
+
+
 end
 
 @testset "Test julia collection traits of `ImageCollection" begin
     # iterate, length, eltype, filter, reverse
     #slidingwindow
+    f = joinpath(pwd(), "data", "sample-imgs.cex")
+
+    coll = fromcex(f, ImageCollection, FileReader)
+    @test eltype(coll) == ImageRecord
+    @test length(coll) == 10
+    @test typeof(collect(coll))  <: Vector
+    @test length(filter(p -> contains(p.label,"2 recto", coll) |> collect) == 1
+    @test reverse(coll)[1] |> urn == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f005v")
+
+    windoid =  slidingwindow(coll)
+    @test windoid[1][1] |> urn == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f001r")
+    @test windoid[end][2] |> urn == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f005v")
+
 end
 

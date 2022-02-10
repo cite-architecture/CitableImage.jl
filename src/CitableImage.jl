@@ -16,8 +16,10 @@ import Base: filter
 import Base: reverse
 
 
-using CitableObject
 using CitableBase
+using CiteEXchange
+using CitableObject
+
 
 import CitableBase: citablecollectiontrait
 
