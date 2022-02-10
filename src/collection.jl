@@ -128,3 +128,61 @@ $(SIGNATURES)
 function cextrait(::Type{ImageCollection})
     ImageCollectionCex()
 end
+
+
+
+"""Serialize `imgcoll` to delimited text in CEX format.
+$(SIGNATURES)
+
+"""
+function cex(imgcoll::ImageCollection; delimiter = "|")
+    datalines = ["#!citedata",
+    join(["urn","caption","rights"], delimiter)    
+    ]
+    for img in imgcoll.images
+        push!(datalines, cex(img, delimiter = delimiter))
+    end
+   
+
+    datamodelcex(imgcoll, delimiter = delimiter)  * "\n\n" * propertiescex(imgcoll, delimiter = delimiter) * "\n\n" * join(datalines, "\n")
+end
+
+function datamodelcex(imgcoll::ImageCollection; delimiter = "|")
+    lines = [
+        "#!datamodels",
+        "Collection|Model|Label|Description",
+        join([string(urn(imgcoll)), string(IMAGE_COLLECTION_MODEL), label(imgcoll)], delimiter)      
+    ]
+    join(lines, "\n")
+end
+
+function propertiescex(imgcoll::ImageCollection; delimiter = "|")
+    urnsettings = join([
+        string(addproperty(urn(imgcoll), "urn")),
+        "URN",
+        "Cite2Urn",
+        ""
+    ], delimiter)
+
+    labelsettings = join([
+        string(addproperty(urn(imgcoll), "label")),
+        "Label",
+        "String",
+        ""
+    ], delimiter)
+
+    rightssettings = join([
+        string(addproperty(urn(imgcoll), "rights")),
+        "Rights",
+        "String",
+        ""
+    ], delimiter)
+
+    lines = ["#!citeproperties",
+        "Property|Label|Type|Authority list",
+        urnsettings,
+        labelsettings,
+        rightssettings
+    ]  
+    join(lines, "\n")
+end

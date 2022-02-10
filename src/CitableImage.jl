@@ -8,6 +8,14 @@ using Downloads
 import Base: show
 import Base: ==
 
+using Base.Iterators
+import Base: length
+import Base: eltype
+import Base: iterate
+import Base: filter
+import Base: reverse
+
+
 using CitableObject
 using CitableBase
 

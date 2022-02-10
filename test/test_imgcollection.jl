@@ -52,9 +52,6 @@ end
 
 @testset "Test julia collection traits of `ImageCollection" begin
     # iterate, length, eltype, filter, reverse
+    #slidingwindow
 end
 
-
-@testset "Test sliding windows on `ImageCollection`" begin
-    
-end
