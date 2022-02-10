@@ -11,6 +11,7 @@ function top(rect::T) where {T <: AbstractRectRoi}
 end
 
 
+
 "Catch subtypes of `AbstractRectRoi`  that fail to implement `left`"
 function left(rect::T) where {T <: AbstractRectRoi}
     throw(DomainError("Function `left` not implemented for type $(T)"))

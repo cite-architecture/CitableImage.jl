@@ -31,7 +31,7 @@ export imagedata
 
 export AbstractRectRoi
 export top, left, bottom, right, h, w
-
+export TLHWRectRoi, TLHWpctRectRoi
 
 export IIIFservice
 export subdirectory
@@ -44,12 +44,16 @@ export LocalImageFiles, localimages
 export ImageRecord
 
 include("rois.jl")
+include("tlhwrect.jl")
+include("tlhwpctrect.jl")
+
 include("utils.jl")
 include("source.jl")
 include("iiif.jl")
 include("local.jl")
 
 include("image.jl")
+
 
 
 

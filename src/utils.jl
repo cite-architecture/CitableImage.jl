@@ -15,12 +15,13 @@ four values giving left top, width and height of a
 rectangle to extract.
 $(SIGNATURES)
 """
-function urnslice(img, floatvals)
-    (x, y, w, h) = floatvals
-    xpix = trunc(Int, x * 512)
-    x2pix = trunc(Int, xpix + w * 512)
-    ypix = trunc(Int, y * 768)
-    y2pix = trunc(Int, ypix + h * 768)
+function urnslice(img, rect::T) where {T <: AbstractRectRoi}
+    #(x, y, w, h) = floatvals
+
+    xpix = trunc(Int, left(rect)) #trunc(Int, x * 512)
+    x2pix = trunc(Int, left(rect) + w(rect)) #xpix + w * 512)
+    ypix = trunc(Int, top(rect)) #y * 768)
+    y2pix = trunc(Int, top(rect) + h(rect))#ypix + h * 768)
 
     if xpix == 0
         xpix = 1
@@ -39,8 +40,6 @@ function urnscale(img, ht = 300)
     new_size = trunc.(Int, size(img) .* percentage_scale)
     imresize(img, new_size)
 end
-
-
 
 
 
