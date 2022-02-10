@@ -64,12 +64,16 @@ end
     @test eltype(coll) == ImageRecord
     @test length(coll) == 10
     @test typeof(collect(coll))  <: Vector
-    @test length(filter(p -> contains(p.label,"2 recto", coll) |> collect) == 1
-    @test reverse(coll)[1] |> urn == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f005v")
+    filtered = filter(p -> contains(label(p),"2 recto"), coll) |> collect
+    @test length(filtered) == 1
+
+    lasturn = Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f005v")
+    reversed = reverse(coll)
+    @test urn(reversed[1]) == lasturn
 
     windoid =  slidingwindow(coll)
-    @test windoid[1][1] |> urn == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f001r")
-    @test windoid[end][2] |> urn == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f005v")
+    @test urn(windoid[1][1]) == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f001r")
+    @test urn(windoid[end][2]) == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f005v")
 
 end
 
