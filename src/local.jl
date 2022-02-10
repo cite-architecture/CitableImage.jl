@@ -9,17 +9,20 @@ struct LocalImageFiles <: AbstractImageSource
 end
 
 
-
+"""Retrieve binary image data cited by `img` from `src`.
+$(SIGNATURES)
+"""
 function imagedata(src::LocalImageFiles, img::Cite2Urn; extension = "jpg", ht::Int=2000) 
     fullimg = imgpath(src, img, extension = extension) |> load  
     if hassubref(img)
-        @warn(subref(img))
+        
         floats = []
         for s in split(subref(img), ",") 
             push!(floats, parse(Float64, s))
         end
+       roi = TLHWpctRectRoi(floats[1],floats[2], floats[3], floats[4],  size(fullimg, 2), size(fullimg, 1))
         # Slice first:
-        sliced = urnslice(fullimg, floats)
+        sliced = urnslice(fullimg, roi)
         urnscale(sliced, ht)
     else
         urnscale(fullimg, ht)

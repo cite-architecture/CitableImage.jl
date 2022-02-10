@@ -4,7 +4,7 @@ struct IIIFservice <: AbstractImageSource
     directoryroot
 end
 
-"""Retrieve image data for `img` from `IIIFService`.
+"""Retrieve binary image data for `img` from `IIIFService`.
 $(SIGNATURES)
 """
 function imagedata(src::IIIFservice, img::Cite2Urn; extension = "tif", ht::Int=2000) 
