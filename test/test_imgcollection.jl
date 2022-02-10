@@ -4,15 +4,21 @@
     lic = "CC-by-share"
     img = ImageRecord(u, caption, lic)
 
-    imgcoll = ImageCollection([img])
+    imgcoll = image_collection([img])
     @test imgcoll isa ImageCollection
     @test string(imgcoll) == "Citable collection with 1 image"
 
     img2 = ImageRecord(u, caption, lic)
-    coll2 = ImageCollection([img2])
+    coll2 = image_collection([img2])
     @test imgcoll == coll2
 
     @test citablecollection(imgcoll)
+
+    @test citable(imgcoll)
+    @test urntype(imgcoll) == Cite2Urn
+    @test urn(imgcoll) == Cite2Urn("urn:cite2:hmt:vaimg.2017a:")
+    @test label(imgcoll) == "Image collection with 1 image"
+
 end
 
 @testset "Test urn comparison trait of `ImageCollection`" begin
@@ -22,7 +28,7 @@ end
     lic = "CC-by-share"
     img = ImageRecord(u, caption, lic)
 
-    imgcoll = ImageCollection([img])
+    imgcoll = image_collection([img])
     @test urncomparable(imgcoll)
 
     collurn = dropobject(u)
@@ -40,7 +46,7 @@ end
     lic = "CC-by-share"
     img = ImageRecord(u, caption, lic)
 
-    imgcoll = ImageCollection([img])
+    imgcoll = image_collection([img])
     @test cexserializable(imgcoll)
 end
 

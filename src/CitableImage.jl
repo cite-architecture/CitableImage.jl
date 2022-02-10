@@ -44,8 +44,10 @@ export subdirectory
 export LocalImageFiles, localimages
 
 export ImageRecord
-export ImageCollection
+export ImageCollection, image_collection
 
+
+include("constants.jl")
 include("rois.jl")
 include("tlhwrect.jl")
 include("tlhwpctrect.jl")
