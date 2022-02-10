@@ -1,16 +1,3 @@
-# Utils for turning URNs into paths in file systems
-# following CITE architecture conventions
-
-
-"""Create directory path for a given urn.
-
-$(SIGNATURES)
-"""
-function image_directory(urn::Cite2Urn)
-    collpath = joinpath(parts(collectioncomponent(urn))...)
-    joinpath(namespace(urn), collpath)
-end
-
 
 
 """Given a region-of-interest string, compute percent values,
@@ -33,6 +20,8 @@ function roiFloats(s::AbstractString, digits::Int = 3)
     end
 end
 
+
+
 """Given a region-of-interest string, compose percent expression for IIIF.
 
 $(SIGNATURES)
@@ -54,4 +43,3 @@ function pctString(u::Cite2Urn)
     floats = join(roiFloats(roi), ",")
     "pct:" * floats
 end
-

@@ -1,11 +1,19 @@
 "An instance of an IIIF image service."
-struct IIIFservice
+struct IIIFservice <: AbstractImageSource
     baseurl
     directoryroot
 end
 
+"""Retrieve binary image data for `img` from `IIIFService`.
+$(SIGNATURES)
+"""
+function imagedata(src::IIIFservice, img::Cite2Urn; extension = "tif", ht::Int=2000) 
+    Downloads.download(url(img, src, ht = ht, extension = extension)) |> load
+end
 
-"""Compose IIIF URL for retrieving an image.
+
+
+"""Compose URL for retrieving an image from an IIIF service.
 $(SIGNATURES)
 
 # Arguments
@@ -13,13 +21,14 @@ $(SIGNATURES)
 - `url` `Cite2Urn` for an image.
 - `service` `IIIFService`
 - `ht` Height of resulting image in pixels.
+- `extension` Extension for file name on server.
 """
-function url(img::Cite2Urn, service::IIIFservice; ht::Int=2000)
+function url(img::Cite2Urn, service::IIIFservice; ht::Int=2000, extension = "tif")
     if hassubref(img)
         pct = pctString(img)
-        service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * "/" * objectcomponent(dropsubref(img)) * ".tif/$(pct)/$(ht),/0/default.jpg"   
+        service.baseurl * "?IIIF=" * service.directoryroot * "/" * subdirectory(img) * "/" * objectcomponent(dropsubref(img)) * ".$(extension)/$(pct)/$(ht),/0/default.jpg"   
     else
-        service.baseurl * "?IIIF=" * service.directoryroot * "/" * image_directory(img) * "/" * objectcomponent(dropsubref(img)) * ".tif/full/$(ht),/0/default.jpg"   
+        service.baseurl * "?IIIF=" * service.directoryroot * "/" * subdirectory(img) * "/" * objectcomponent(dropsubref(img)) * ".$(extension)/full/$(ht),/0/default.jpg"   
     end
 end
 
@@ -59,11 +68,11 @@ $(SIGNATURES)
 - `ht` Height of resulting image in pixels.
 - `caption` Caption to embed in resulting linked markdown string.
 """
-function linkedMarkdownImage(ict::AbstractString, img, service; ht::Int=500, caption::AbstractString="image")
+function linkedMarkdownImage(ict::AbstractString, img, service; ht::Int=500, caption::AbstractString="image", extension = "tif")
     scaledimensions = hassubref(img) ? pctString(img) : "full"
     pt1 = "[![" * caption * ")](" *  service.baseurl * "?IIIF=" * service.directoryroot * "/"
-    pt2 = image_directory(img) * "/" * objectcomponent(dropsubref(img)) 
-    pt3 =  ".tif/" * scaledimensions  * "/$(ht),/0/default.jpg)]"
+    pt2 = subdirectory(img) * "/" * objectcomponent(dropsubref(img)) 
+    pt3 =  ".$(extension)/" * scaledimensions  * "/$(ht),/0/default.jpg)]"
     pt4 = "(" * ict * "urn=$(img.urn))"
     join([pt1, pt2, pt3, pt4], "")
 end
