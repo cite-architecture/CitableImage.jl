@@ -65,3 +65,13 @@ $(SIGNATURES)
 function urnsimilar(u::Cite2Urn, imgcoll::ImageCollection )
     filter(img -> urnsimilar(u, img.urn), imgcoll.images)
 end
+
+
+"""Define singleton type to use as value for `CitableCollectionTrait`."""
+struct ImageCollectionCex <: CexTrait end
+"""Define value of `CexTrait` for `Codex`.
+$(SIGNATURES)
+"""
+function cextrait(::Type{ImageCollection})
+    ImageCollectionCex()
+end

@@ -35,6 +35,13 @@ end
 
 @testset "Test cex trait of `ImageCollection`" begin
     #cexserializable, cex, fromcex
+    u = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA083RN_0084")
+    caption =  "folio 83 recto, natural light"
+    lic = "CC-by-share"
+    img = ImageRecord(u, caption, lic)
+
+    imgcoll = ImageCollection([img])
+    @test cexserializable(imgcoll)
 end
 
 @testset "Test julia collection traits of `ImageCollection" begin
