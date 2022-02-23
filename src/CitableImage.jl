@@ -19,7 +19,7 @@ import Base: reverse
 using CitableBase
 using CiteEXchange
 using CitableObject
-
+using CitableObject.CexUtils
 
 import CitableBase: citablecollectiontrait
 
@@ -70,6 +70,7 @@ include("local.jl")
 
 include("image.jl")
 include("collection.jl")
+include("lightbox.jl")
 
 
 
