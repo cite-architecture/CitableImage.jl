@@ -57,7 +57,7 @@ export ImageRecord
 export ImageCollection, image_collection
 
 export Lightbox, lightbox
-export pages, rows, columns, page, mdtable
+export pages, rows, columns, page, mdtable, mdtables
 
 
 include("rois.jl")

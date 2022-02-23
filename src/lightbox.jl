@@ -77,15 +77,28 @@ function columns(imgtable::T) where (T <: AbstractArray)
     end
 end
 
+"""Compose a markdown table for all pages in `lb`.
+$(SIGNATURES)
+"""
+function mdtables(lb::Lightbox; iiif = CitableImage.DEFAULT_IIIF_SERVICE, ict = CitableImage.DEFAULT_ICT, thumbsize = 100)
+    pagemd = []
+    for pg in lb.imagepages
+        push!(pagemd, mdtable(pg, iiif = iiif, ict = ict, thumbsize = thumbsize))
+    end
+    pagemd
+end
+
 """Compose a markdown table for page `page` of `lb`
 thumbnail image size in pixels == `thumbsize`.
 $(SIGNATURES)
 """
-function mdtable(lb::Lightbox, svc::IIIFservice, page = 1; thumbsize = 100)
-    mdtable(lb.imagepages[page], svc, thumbsize = thumbsize)
+function mdtable(lb::Lightbox, page = 1; iiif = CitableImage.DEFAULT_IIIF_SERVICE, ict = CitableImage.DEFAULT_ICT, thumbsize = 100)
+    mdtable(lb.imagepages[page], iiif = iiif, ict = ict, thumbsize = thumbsize)
 end
 
-
+"""Compose markdown table header.
+$(SIGNATURES)
+"""
 function mdheaderlines(imgtable)
     labels = "|" * join(["" for _ in 1:columns(imgtable)], "|") * "|"
     spacers = "|" * join(["---" for _ in 1:columns(imgtable)], "|") * "|"
@@ -97,16 +110,21 @@ thumbnail image size in pixels == `thumbsize`.
 $(SIGNATURES)
 """
 function mdtable(imgtable; iiif = CitableImage.DEFAULT_IIIF_SERVICE, ict = CitableImage.DEFAULT_ICT, thumbsize = 100)
-    #linkedMarkdownImage(ict, img, service; ht=100, caption="folio 12 recto")
     lines = mdheaderlines(imgtable)
+
     for r in imgtable
-        cells = []
-        for c in r
-            md = linkedMarkdownImage(ict, c.urn, iiif; ht=thumbsize, caption=c.caption)
-            push!(cells, md)
+        if ! isnothing(r)
+            cells = []
+            for c in r
+                if isnothing(c)
+                    push!(cells, "")
+                else
+                    md = linkedMarkdownImage(ict, c.urn, iiif; ht=thumbsize, caption=c.caption)
+                    push!(cells, md)
+                end
+            end
+            push!(lines, "| " * join(cells, " |") * " |")
         end
-        
-        push!(lines, "| " * join(cells, " |") * " |")
     end
     join(lines, "\n")
 end
