@@ -1,4 +1,4 @@
-# User guide
+# Retrieving citable binary data
 
 
 ## Instantiate a IIIF service

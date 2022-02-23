@@ -56,6 +56,8 @@ export LocalImageFiles, localimages
 export ImageRecord
 export ImageCollection, image_collection
 
+export Lightbox, lightbox
+export pages, rows, columns, mdpage
 
 include("constants.jl")
 include("rois.jl")

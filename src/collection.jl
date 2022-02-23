@@ -221,8 +221,6 @@ $(SIGNATURES)
 function length(imgcoll::ImageCollection)
     length(imgcoll.images)
 end
-
-
 	
 """An `ImageCollection` is a collection of `ImageRecord`s.
 $(SIGNATURES)

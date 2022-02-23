@@ -16,8 +16,10 @@ makedocs(
     sitename = "CitableImage Documentation",
     pages = [
         "Home" => "index.md",
-        "Guide" => "guide.md",
+        "Collections of citable images" => "collections.md",
+        "Binary image data" => "binarydata.md",
         "Server configuration" => "server.md",
+        "The Lightbox" => "lightbox.md",
         "API documentation" => "apis.md"
     ]
 )
