@@ -1,6 +1,6 @@
 """Structure to hold images in a 2-D array of rowsXcolumns."""
 struct Lightbox
-    imagepages::Vector{CitableImage.LIGHTBOX_TYPE}
+    imagepages
 end
 
 """Begin iterating pages of a `Lightbox` with page 1.
@@ -62,16 +62,14 @@ end
 """Number of rows in `imgtable`.
 $(SIGNATURES)
 """
-function rows(imgtable::CitableImage.LIGHTBOX_TYPE)
+function rows(imgtable::T) where (T <: AbstractArray)
     length(imgtable)
 end
-
-
 
 """Number of columns in `imgtable`.
 $(SIGNATURES)
 """
-function columns(imgtable::CitableImage.LIGHTBOX_TYPE)
+function columns(imgtable::T) where (T <: AbstractArray)
     if isempty(imgtable) || isempty(imgtable[1])
         0
     else
@@ -88,17 +86,28 @@ function mdtable(lb::Lightbox, svc::IIIFservice, page = 1; thumbsize = 100)
 end
 
 
-"""Compose a markdown table for  `imgtable` with
+function mdheaderlines(imgtable)
+    labels = "|" * join(["" for _ in 1:columns(imgtable)], "|") * "|"
+    spacers = "|" * join(["---" for _ in 1:columns(imgtable)], "|") * "|"
+    [labels, spacers]
+end
+
+"""Compose a markdown table for `imgtable` with
 thumbnail image size in pixels == `thumbsize`.
 $(SIGNATURES)
 """
-function mdtable(imgtable::CitableImage.LIGHTBOX_TYPE, svc::IIIFservice; thumbsize = 100)
+function mdtable(imgtable; iiif = CitableImage.DEFAULT_IIIF_SERVICE, ict = CitableImage.DEFAULT_ICT, thumbsize = 100)
+    #linkedMarkdownImage(ict, img, service; ht=100, caption="folio 12 recto")
+    lines = mdheaderlines(imgtable)
     for r in imgtable
+        cells = []
         for c in r
-            print("cell-")
+            md = linkedMarkdownImage(ict, c.urn, iiif; ht=thumbsize, caption=c.caption)
+            push!(cells, md)
         end
-        println("/row")
+        
+        push!(lines, "| " * join(cells, " |") * " |")
     end
+    join(lines, "\n")
 end
-
 
