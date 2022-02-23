@@ -72,7 +72,7 @@ function show(io::IO, imgcoll::ImageCollection)
     if imgcount == 1 
         print(io, "Citable collection with 1 image")
     else
-        print(io, "Citable collection with ", imgcount, " image")
+        print(io, "Citable collection with ", imgcount, " images")
     end
 end
 

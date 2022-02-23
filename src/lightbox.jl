@@ -1,6 +1,6 @@
 """Structure to hold images in a 2-D array of rowsXcolumns."""
 struct Lightbox
-    imagepages
+    imagepages::Vector{CitableImage.LIGHTBOX_TYPE}
 end
 
 """Begin iterating pages of a `Lightbox` with page 1.
@@ -63,8 +63,22 @@ end
 thumbnail image size in pixels == `thumbsize`.
 $(SIGNATURES)
 """
-function mdtable(lb::Lightbox; page = 1, thumbsize = 100)
-    # ITERATE IT AND THUMB THEM
+function mdtable(lb::Lightbox, svc::IIIFservice, page = 1; thumbsize = 100)
+    mdtable(lb.imagepages[page], svc, thumbsize = thumbsize)
+end
+
+
+"""Compose a markdown table for  `imgtable` with
+thumbnail image size in pixels == `thumbsize`.
+$(SIGNATURES)
+"""
+function mdtable(imgtable::CitableImage.LIGHTBOX_TYPE, svc::IIIFservice; thumbsize = 100)
+    for r in imgtable
+        for c in r
+            print("cell-")
+        end
+        println("/row")
+    end
 end
 
 
