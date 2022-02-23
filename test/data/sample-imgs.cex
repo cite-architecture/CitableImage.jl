@@ -1,3 +1,17 @@
+#!datamodels
+Collection|Model|Label|Description
+urn:cite2:citebl:burney86imgs.v1:|urn:cite2:cite:datamodels.v1:imagemodel|Model of citable image.
+
+#!citecollections
+URN|Description|Labelling property|Ordering property|License
+urn:cite2:citebl:burney86imgs.v1:|Images of the British Library, Burney 86 manuscript.|urn:cite2:citebl:burney86imgs.v1.caption:||PublicDomain
+
+#!citeproperties
+Property|Label|Type|Authority list
+urn:cite2:citebl:burney86imgs.v1.urn:|URN|Cite2Urn|
+urn:cite2:citebl:burney86imgs.v1.caption:|Caption|String|
+urn:cite2:citebl:burney86imgs.v1.rights:|Rights|String|
+
 #!citedata
 urn|caption|rights
 urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f001r|British Library, Burney 86, folio 1 recto|Image in the public domain.

@@ -1,14 +1,12 @@
 # CitableImage.jl
 
-> *Use URNs. to work with image services.*
-
-The current version of the CitableImage package supports working with image servics using the IIIF protocol.
+> *Use URNs to work with image services.*
 
 
-```@contents
-Pages = [
-    "guide.md",
-    "server.md",
-    "apis.md"]
-Depth = 2
-```
+
+TBA: overview of contents:
+
+- collections of citable images
+- working with binary image data. The current version of the CitableImage package supports working with image servics using the IIIF protocol.
+- working with tables of images in a "lightbox"
+

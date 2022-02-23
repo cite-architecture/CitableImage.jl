@@ -19,7 +19,7 @@ import Base: reverse
 using CitableBase
 using CiteEXchange
 using CitableObject
-
+using CitableObject.CexUtils
 
 import CitableBase: citablecollectiontrait
 
@@ -56,8 +56,10 @@ export LocalImageFiles, localimages
 export ImageRecord
 export ImageCollection, image_collection
 
+export Lightbox, lightbox
+export pages, rows, columns, page, mdtable, mdtables
 
-include("constants.jl")
+
 include("rois.jl")
 include("tlhwrect.jl")
 include("tlhwpctrect.jl")
@@ -69,7 +71,9 @@ include("iiif.jl")
 include("local.jl")
 
 include("image.jl")
+include("constants.jl")
 include("collection.jl")
+include("lightbox.jl")
 
 
 

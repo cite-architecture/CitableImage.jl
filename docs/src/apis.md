@@ -10,7 +10,6 @@ Exported structures and functions
 
 ```@docs
 IIIFservice
-image_directory
 url
 ```
 
