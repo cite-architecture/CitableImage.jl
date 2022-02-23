@@ -59,6 +59,26 @@ function columns(lb::Lightbox)
     end
 end
 
+"""Number of rows in `imgtable`.
+$(SIGNATURES)
+"""
+function rows(imgtable::CitableImage.LIGHTBOX_TYPE)
+    length(imgtable)
+end
+
+
+
+"""Number of columns in `imgtable`.
+$(SIGNATURES)
+"""
+function columns(imgtable::CitableImage.LIGHTBOX_TYPE)
+    if isempty(imgtable) || isempty(imgtable[1])
+        0
+    else
+        length(imgtable[1])
+    end
+end
+
 """Compose a markdown table for page `page` of `lb`
 thumbnail image size in pixels == `thumbsize`.
 $(SIGNATURES)
