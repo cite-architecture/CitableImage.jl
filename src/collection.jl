@@ -68,12 +68,7 @@ end
 $(SIGNATURES)
 """
 function show(io::IO, imgcoll::ImageCollection)
-    imgcount = length(imgcoll.images)
-    if imgcount == 1 
-        print(io, "Citable collection with 1 image")
-    else
-        print(io, "Citable collection with ", imgcount, " images")
-    end
+    print(io, imgcoll.description)
 end
 
 
@@ -199,12 +194,38 @@ end
 """Instantiate an `ImageCollection` from `cexsrc`.
 $(SIGNATURES)
 If `strict` is true, then the function uses data model declarations
-to find relevant data lines.  If `strict` is false, then it assumes
-that no more than on `citedata` block is present in the CEX.
+to find relevant data blocks.  If `strict` is false, then it treats `citedata` blocks as source for a single `ImageCollection`.
 """
 function fromcex(trait::ImageCollectionCex, cexsrc::AbstractString, T;
     delimiter = "|", configuration = nothing, strict = true)
 
+    if strict == false
+        @warn("Lazily treating all CITE collection data as one ImageCollection")
+        datalines = data(cexsrc, "citedata")
+        if isempty(datalines)
+            throw(DomainError("No citedata block found in source CEX."))
+        end
+        imgrecords = map(ln -> fromcex(ln, ImageRecord, delimiter = delimiter), datalines)
+        label = "Automatically assembled set of $(length(imgrecords)) DSETriples"
+        [ImageCollection(label, imgrecords)]
+
+
+    else
+        impls = implementations(cexsrc, CitableImage.IMAGE_MODEL)
+        if isempty(impls)
+            throw(DomainError("No image collections configured for DSE model $(CitableImage.IMAGE_MODEL)."))
+        end
+
+        imagecolls = ImageCollection[]
+        for impl in impls
+            label = cataloglabel(cexsrc, impl)
+            imgrecords = map(ln -> fromcex(ln, ImageRecord, delimiter = delimiter), collectiondata(cexsrc, impl))
+            push!(imagecolls, ImageCollection(label, imgrecords))
+        end
+        imagecolls
+    end
+
+    #=
     datalines = strict ? data_for_model(cexsrc, CitableImage.IMAGE_MODEL) : CiteEXchange.data(cexsrc, "citedata")
 
     imglist  = ImageRecord[]
@@ -212,6 +233,7 @@ function fromcex(trait::ImageCollectionCex, cexsrc::AbstractString, T;
         push!(imglist, fromcex(ln, ImageRecord, delimiter = delimiter))
     end
     image_collection(imglist)
+    =#
 end
 
 
