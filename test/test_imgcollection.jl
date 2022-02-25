@@ -6,7 +6,7 @@
 
     imgcoll = image_collection([img])
     @test imgcoll isa ImageCollection
-    @test string(imgcoll) == "Citable collection with 1 image"
+    @test string(imgcoll) == "Image collection with 1 image"
 
     img2 = ImageRecord(u, caption, lic)
     coll2 = image_collection([img2])
@@ -50,7 +50,7 @@ end
     @test cexserializable(imgcoll)
     expected = "#!datamodels\nCollection|Model|Label|Description\nurn:cite2:hmt:vaimg.2017a:|urn:cite2:cite:datamodels.v1:imagemodel|Image collection with 1 image\n\n#!citeproperties\nProperty|Label|Type|Authority list\nurn:cite2:hmt:vaimg.2017a.urn:|URN|Cite2Urn|\nurn:cite2:hmt:vaimg.2017a.label:|Label|String|\nurn:cite2:hmt:vaimg.2017a.rights:|Rights|String|\n\n#!citedata\nurn|caption|rights\nurn:cite2:hmt:vaimg.2017a:VA083RN_0084|folio 83 recto, natural light|CC-by-share"
     @test cex(imgcoll) == expected
-    @test fromcex(cex(imgcoll), ImageCollection) == imgcoll
+    @test fromcex(cex(imgcoll), ImageCollection) == [imgcoll]
 
 
 end
@@ -60,7 +60,8 @@ end
     #slidingwindow
     f = joinpath(pwd(), "data", "sample-imgs.cex")
 
-    coll = fromcex(f, ImageCollection, FileReader)
+    colls = fromcex(f, ImageCollection, FileReader)
+    coll = colls[1]
     @test eltype(coll) == ImageRecord
     @test length(coll) == 10
     @test typeof(collect(coll))  <: Vector
