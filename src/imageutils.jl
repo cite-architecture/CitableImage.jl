@@ -6,8 +6,8 @@
 $(SIGNATURES)
 """
 function subdirectory(urn::Cite2Urn)
-    collpath = joinpath(parts(collectioncomponent(urn))...)
-    joinpath(namespace(urn), collpath)
+    collpath = join([parts(collectioncomponent(urn))...], "/")
+    join([namespace(urn), collpath], "/")
 end
 
 """Extract a slice from `img` defined by a list of
