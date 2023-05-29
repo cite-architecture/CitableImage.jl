@@ -46,8 +46,8 @@ function imgpath(imgsrc::LocalImageFiles, imgurn::Cite2Urn; extension = "jpg")
     filebase = imgurn |> dropsubref |> objectcomponent 
     filename = filebase * "." * extension
     imgsrc.expandpath ? 
-        joinpath(basedirectory(imgsrc), subdirectory(imgurn), filename) : 
-        joinpath(basedirectory(imgsrc), filename)
+        join([basedirectory(imgsrc), subdirectory(imgurn), filename], "/") : 
+        join([basedirectory(imgsrc), filename], "/")
 end
 
 """Base directory for images in a local file system.
