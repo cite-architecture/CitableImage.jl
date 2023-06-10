@@ -1,7 +1,7 @@
 name = "CitableImage"
 uuid = "17ccb2e5-db19-44b3-b354-4fd16d92c74e"
 authors = ["Neel Smith <dnsmith.neel@gmail.com>"]
-version = "0.6.5"
+version = "0.6.6"
 
 [deps]
 CitableBase = "d6f014bd-995c-41bd-9893-703339864534"
@@ -18,12 +18,10 @@ TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
 
 [compat]
 CitableBase = "10"
-CitableObject = "0.15"
+CitableObject = "0.16"
 CiteEXchange = "0.10"
 DocStringExtensions = "0.9"
 Documenter = "0.27"
 FileIO = "1.13"
-ImageIO = "0.6"
-Images = "0.25"
 TestImages = "1.6"
 julia = "1"
