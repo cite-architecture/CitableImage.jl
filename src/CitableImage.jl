@@ -37,9 +37,9 @@ import CitableBase: cextrait
 import CitableBase: cex
 import CitableBase: fromcex
 
-
 export AbstractImageSource
-export imagedata
+export imagefloats
+export rgb_data, rgba_data
 
 export AbstractRectRoi
 export top, left, bottom, right, h, w
@@ -59,6 +59,8 @@ export ImageCollection, image_collection
 export Lightbox, lightbox
 export pages, rows, columns, page, mdtable, mdtables
 
+
+include("utils.jl")
 
 include("rois.jl")
 include("tlhwrect.jl")

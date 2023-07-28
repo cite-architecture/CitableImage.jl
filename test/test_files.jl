@@ -9,10 +9,10 @@
     @test flatsrc isa LocalImageFiles
     flatdirimg = Cite2Urn("urn:cite2:citeecod:codsang250imgs.v1:sg250_478_477_0@0.2458,0.3005,0.07813,0.02664")
     @test isfile(CitableImage.imgpath(flatsrc, flatdirimg, extension = "jpg"))
-    data  = imagedata(flatsrc, flatdirimg)
+    data  = rgb_data(flatsrc, flatdirimg)
     @test size(data) == (2000, 459)
 
-    data500  = imagedata(flatsrc, flatdirimg, ht = 500)
+    data500  = rgb_data(flatsrc, flatdirimg, ht = 500)
     @test size(data500) == (500, 114)
 
 end
