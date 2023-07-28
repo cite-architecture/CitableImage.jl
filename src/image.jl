@@ -58,8 +58,6 @@ function label(img::ImageRecord)
 end
 
 
-
-
 "Define singleton type to use as value of `UrnComparisonTrait` on `MSPage`."
 struct ImageComparable <: UrnComparisonTrait end
 """Set value of `UrnComparisonTrait` for `ImageRecord`.
@@ -104,7 +102,7 @@ function cextrait(::Type{ImageRecord})
     ImageCex()
 end
 
-"""Serialize `img` to delimited text.
+"""Serialize image record `img` to delimited text.
 $(SIGNATURES)
 Required for `CexTrait`.
 """    
@@ -113,7 +111,7 @@ function cex(img::ImageRecord; delimiter = "|")
 end
 
 
-"""Instantiate a `MSPage`from delimited text.
+"""Instantiate aν `ImageRecord`from delimited text.
 $(SIGNATURES)
 """
 function fromcex(traitvalue::ImageCex, cexsrc::AbstractString, T;

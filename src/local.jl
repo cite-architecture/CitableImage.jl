@@ -12,7 +12,7 @@ end
 """Retrieve binary image data cited by `img` from `src`.
 $(SIGNATURES)
 """
-function imagedata(src::LocalImageFiles, img::Cite2Urn; extension = "jpg", ht::Int=2000) 
+function rgb_data(src::LocalImageFiles, img::Cite2Urn; extension = "jpg", ht::Int=2000) 
     fullimg = imgpath(src, img, extension = extension) |> load  
     if hassubref(img)
         

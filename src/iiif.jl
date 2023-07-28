@@ -4,13 +4,15 @@ struct IIIFservice <: AbstractImageSource
     directoryroot
 end
 
-"""Retrieve binary image data for `img` from `IIIFService`.
+"""Retrieve RGB data for an image identified by URN from a IIIF service.
 $(SIGNATURES)
 """
-function imagedata(src::IIIFservice, img::Cite2Urn; extension = "tif", ht::Int=2000) 
-    Downloads.download(url(img, src, ht = ht, extension = extension)) |> load
+function rgb_data(src::IIIFservice, img::Cite2Urn; extension = "tif", w::Int=2000)::Matrix{RGB{N0f8}}
+    f = Downloads.download(url(img, src, w = w, extension = extension)) 
+    img = load(f)
+	rm(f)
+	img
 end
-
 
 
 """Compose URL for retrieving an image from an IIIF service.
@@ -23,12 +25,12 @@ $(SIGNATURES)
 - `ht` Height of resulting image in pixels.
 - `extension` Extension for file name on server.
 """
-function url(img::Cite2Urn, service::IIIFservice; ht::Int=2000, extension = "tif")
+function url(img::Cite2Urn, service::IIIFservice; w::Int=2000, extension = "tif")
     if hassubref(img)
         pct = pctString(img)
-        service.baseurl * "?IIIF=" * service.directoryroot * "/" * subdirectory(img) * "/" * objectcomponent(dropsubref(img)) * ".$(extension)/$(pct)/$(ht),/0/default.jpg"   
+        service.baseurl * "?IIIF=" * service.directoryroot * "/" * subdirectory(img) * "/" * objectcomponent(dropsubref(img)) * ".$(extension)/$(pct)/$(w),/0/default.jpg"   
     else
-        service.baseurl * "?IIIF=" * service.directoryroot * "/" * subdirectory(img) * "/" * objectcomponent(dropsubref(img)) * ".$(extension)/full/$(ht),/0/default.jpg"   
+        service.baseurl * "?IIIF=" * service.directoryroot * "/" * subdirectory(img) * "/" * objectcomponent(dropsubref(img)) * ".$(extension)/full/$(w),/0/default.jpg"   
     end
 end
 
@@ -43,14 +45,14 @@ $(SIGNATURES)
 - `ht` Height of resulting image in pixels.
 
 """
-function markdownImage(img::Cite2Urn, service::IIIFservice; ht::Int=2000, caption::AbstractString="image") 
+function markdownImage(img::Cite2Urn, service::IIIFservice; w::Int=2000, caption::AbstractString="image") 
     #if hassubref(img) 
         #pct = pctString(img)
         pieces = [
         "![",
         caption,
         "](",
-        url(img, service; ht = ht),
+        url(img, service; w = w),
         ")"
         ]
         join(pieces)
@@ -65,14 +67,14 @@ $(SIGNATURES)
 - `ict` URL of an instance of the CiteArchitecture ImageCitationTool.
 - `img` `Cite2Urn` for an image.
 - `service` `IIIFService`
-- `ht` Height of resulting image in pixels.
+- `w` Width of resulting image in pixels.
 - `caption` Caption to embed in resulting linked markdown string.
 """
-function linkedMarkdownImage(ict::AbstractString, img, service; ht::Int=500, caption::AbstractString="image", extension = "tif")
+function linkedMarkdownImage(ict::AbstractString, img, service; w::Int=500, caption::AbstractString="image", extension = "tif")
     scaledimensions = hassubref(img) ? pctString(img) : "full"
     pt1 = "[![" * caption * ")](" *  service.baseurl * "?IIIF=" * service.directoryroot * "/"
     pt2 = subdirectory(img) * "/" * objectcomponent(dropsubref(img)) 
-    pt3 =  ".$(extension)/" * scaledimensions  * "/$(ht),/0/default.jpg)]"
+    pt3 =  ".$(extension)/" * scaledimensions  * "/$(w),/0/default.jpg)]"
     pt4 = "(" * ict * "urn=$(img.urn))"
     join([pt1, pt2, pt3, pt4], "")
 end
@@ -82,7 +84,7 @@ end
 
 $(SIGNATURES)
 """
-function htmlImage(img::Cite2Urn, service::IIIFservice; ht = 2000, caption::AbstractString="image")
+function htmlImage(img::Cite2Urn, service::IIIFservice; w = 2000, caption::AbstractString="image")
     #res3: String = "<img class=\"citeImage\" alt=\"image\" src=\"http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/!75,/0/default.jpg\" />"
     
     
@@ -92,7 +94,7 @@ function htmlImage(img::Cite2Urn, service::IIIFservice; ht = 2000, caption::Abst
         caption,
         "\" ",
         " src=\"",
-        url(img, service, ht = ht),
+        url(img, service, w = w),
         "\" />"
     ]
     join(pieces)
@@ -103,7 +105,7 @@ end
 
 $(SIGNATURES)
 """
-function linkedHtmlImage(ict::AbstractString, img, service;  ht::Int=500, caption::AbstractString="image") #, caption="Folio 12 recto of the Venetus A manuscript of the Iliad")
+function linkedHtmlImage(ict::AbstractString, img, service;  w::Int=500, caption::AbstractString="image") #, caption="Folio 12 recto of the Venetus A manuscript of the Iliad")
     #  String = "<a href=\"http://www.homermultitext.org/ict2/?urn=urn:cite2:hmt:vaimg.2017a:VA012RN_0013\"><img class=\"citeImage\" src=\"http://www.homermultitext.org/iipsrv?IIIF=/project/homer/pyramidal/deepzoom/hmt/vaimg/2017a/VA012RN_0013.tif/full/!,150/0/default.jpg\" /></a>"
     pieces = [
     "<a href=\"",
@@ -114,7 +116,7 @@ function linkedHtmlImage(ict::AbstractString, img, service;  ht::Int=500, captio
     " alt=\"",
     caption,
     "\" src=\"",
-    url(img,service; ht=ht),
+    url(img,service; w=w),
     "\"/></a>"
     ]
     join(pieces)
