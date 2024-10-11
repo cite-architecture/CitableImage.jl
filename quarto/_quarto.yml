@@ -37,6 +37,7 @@ website:
       contents: 
         - tutorials/index.qmd
         - tutorials/binarydata.qmd
+        - tutorials/formatteddisplay.qmd
 
     - title: "Guides"
       contents:
