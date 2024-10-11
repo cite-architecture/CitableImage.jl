@@ -1,5 +1,6 @@
 ---
 title: "Citing images"
+engine: julia
 ---
 
 Concepts and implementation in a Julia interface.

@@ -6,3 +6,4 @@
 
 The current version of the CitableImage package supports working with image services using the  [IIIF protocol](https://iiif.io/) .
 
+Documentation is available on [quarto.pub](https://neelsmith.quarto.pub/citableimage/)
