@@ -71,8 +71,9 @@ $(SIGNATURES)
 - `caption` Caption to embed in resulting linked markdown string.
 """
 function linkedMarkdownImage(ict::AbstractString, img, service; w::Int=500, caption::AbstractString="image", extension = "tif")
+    
     scaledimensions = hassubref(img) ? pctString(img) : "full"
-    pt1 = "[![" * caption * ")](" *  service.baseurl * "?IIIF=" * service.directoryroot * "/"
+    pt1 = "[![" * caption * "](" *  service.baseurl * "?IIIF=" * service.directoryroot * "/"
     pt2 = subdirectory(img) * "/" * objectcomponent(dropsubref(img)) 
     pt3 =  ".$(extension)/" * scaledimensions  * "/$(w),/0/default.jpg)]"
     pt4 = "(" * ict * "urn=$(img.urn))"
