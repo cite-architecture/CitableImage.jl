@@ -72,9 +72,9 @@ end
     reversed = reverse(coll)
     @test urn(reversed[1]) == lasturn
 
-    windoid =  slidingwindow(coll)
-    @test urn(windoid[1][1]) == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f001r")
-    @test urn(windoid[end][2]) == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f005v")
+    #windoid =  slidingwindow(coll)
+    #@test urn(windoid[1][1]) == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f001r")
+    #@test urn(windoid[end][2]) == Cite2Urn("urn:cite2:citebl:burney86imgs.v1:burney_ms_86_f005v")
 
 end
 

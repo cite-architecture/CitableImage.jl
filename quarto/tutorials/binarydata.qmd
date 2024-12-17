@@ -1,0 +1,44 @@
+---
+engine: julia
+---
+
+
+# Retrieving citable binary data
+
+
+
+You can retrieve image data from a IIIF service using Cite2 URNs.
+
+
+## IIIF requests
+
+First you need need to instantiate a IIIF service. You need to know its base URL and the path to the root directory for the service.
+
+```{julia}
+using CitableImage
+baseurl = "http://www.homermultitext.org/iipsrv"
+root = "/project/homer/pyramidal/deepzoom"
+service = IIIFservice(baseurl, root)
+```    
+
+The `url` function can then form IIIF requests for a service given an image's URN.
+
+
+```{julia}
+using CitableObject
+img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013")
+
+iifrequest = url(img, service)
+```
+
+You could use the resulting URL to directly request binary image data, and work with it using Julia packages like `Images`.
+
+```{julia}
+using Downloads
+imgfile = Downloads.download(iifrequest)
+
+using Images, FileIO  
+img = load(imgfile)
+rm(imgfile)
+img
+```

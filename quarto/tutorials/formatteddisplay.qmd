@@ -1,0 +1,80 @@
+---
+engine: julia
+---
+
+
+# Formatting images for display in Web pages
+
+You can use URN references to embed images in Web pages.
+
+## Prerequisite: IIIF service
+
+Instantiate a IIIF service:
+
+```{julia}
+using CitableImage
+baseurl = "http://www.homermultitext.org/iipsrv"
+root = "/project/homer/pyramidal/deepzoom"
+service = IIIFservice(baseurl, root)
+```    
+
+
+
+## Compose a markdown display of an image
+
+
+
+Format the request for inclusion in a markdown document.  Here, we'll use the optional height parameter to set the result image's size in pixels.
+
+
+
+
+```{julia}
+using CitableObject
+img = Cite2Urn("urn:cite2:hmt:vaimg.2017a:VA012RN_0013")
+
+mdembed = markdownImage(img, service; w = 200)
+```
+
+```{julia}
+#| echo: true
+#| asis: true
+#| warning: false
+using Markdown
+mdembed |> Markdown.parse
+```
+
+
+
+
+
+
+## Compose a markdown display linked to an image citation tool
+
+We need an additional parameter for the ImageCitationTool to link to.  In this exmaple, we'll opt to include both a height in pixels and a caption to embed in the markdown.
+
+
+```{julia}
+ict = "http://www.homermultitext.org/ict2/?"
+embedwlink = linkedMarkdownImage(ict, img, service; w=100, caption="folio 12 recto")
+```
+
+```{julia}
+embedwlink |> Markdown.parse
+```
+
+The output is linked to the configured image citation tool.
+
+
+
+
+## Compose an HTML display of an image
+
+Format the request for inclusion in an HTML document.  Here, we'll use the optional height parameter to set the result image's size in pixels.
+
+```{julia}
+htmlimg = htmlImage(img, service; w = 200)
+```
+
+
+
